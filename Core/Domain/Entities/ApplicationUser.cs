@@ -10,9 +10,8 @@ namespace Domain.Entities
         public DateOnly Birthdate { get; set; }
         public string IdentificationType { get; set; }
         public string IdentificationNumber { get; set; }
-        public string ImgUrl { get; set; }
+        public string ImgUrl { get; set; } = string.Empty;
         public Authority? Authority { get; set; }
-        public School? School { get; set; }
         public Professor? Professor { get; set; }
 
     }

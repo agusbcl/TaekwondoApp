@@ -28,5 +28,23 @@ namespace Application.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ServiceResponse<int>> GetByUserId(int userId)
+        {
+            var serviceResponse = new ServiceResponse<int>();
+
+            try
+            {
+                serviceResponse.Data = await _authorityRepository.GetByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+                _logger.LogError(ex, ex.Message);
+            }
+
+            return serviceResponse;
+        }
     }
 }

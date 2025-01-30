@@ -7,7 +7,6 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Title { get; set; }
         public string Order { get; set; }
-        public ICollection<PractitionerColor> PractitionerColors { get; set; }
-        public ICollection<ProfessorColor> ProfessorColors { get; set; }
+        public ICollection<Exam> Exams { get; set; }
     }
 }

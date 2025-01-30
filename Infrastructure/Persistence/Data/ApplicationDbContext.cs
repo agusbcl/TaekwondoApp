@@ -16,16 +16,13 @@ namespace Persistence.Data
 
         public DbSet<Authority> Authorities { get; set; }
         public DbSet<Color> Colors { get; set; }
-        public DbSet<ProfessorColor> ProfessorColors { get; set; }
-        public DbSet<PractitionerColor> PractitionerColors { get; set; }
         public DbSet<EmergencyContact> EmergencyContacts { get; set; }
-        public DbSet<Event> Events {  get; set; }
-        public DbSet<PractitionerEvent> PractitionerEvents { get; set; }
-        public DbSet<ProfessorEvent> ProfessorEvents { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Practitioner> Practitioners { get; set; }
         public DbSet<Professor> Professors { get; set; }
         public DbSet<School> Schools { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
