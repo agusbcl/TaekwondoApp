@@ -13,6 +13,7 @@ namespace Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthorityService, AuthorityService>();
+            services.AddScoped<INewsService, NewsService>();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AuthenticationRequestValidator>());

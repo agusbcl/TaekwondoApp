@@ -21,6 +21,7 @@ namespace Persistence
                 .AddInterceptors(sp.GetRequiredService<SoftDeleteInterceptor>()));
 
             services.AddScoped<IauthorityRepository, AuthorityRepository>();
+            services.AddScoped<INewsRepository, NewsRepository>();
 
             return services;
         }
