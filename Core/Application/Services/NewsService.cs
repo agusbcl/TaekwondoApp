@@ -5,7 +5,6 @@ using Domain.Entities;
 using DTOs;
 using DTOs.News;
 using Microsoft.Extensions.Logging;
-using System.Security.Cryptography;
 
 namespace Application.Services
 {
@@ -97,7 +96,7 @@ namespace Application.Services
                 if (dbObj == null)
                 {
                     serviceResponse.Success = false;
-                    serviceResponse.Message = $"News with id {objId} is not available to update,";
+                    serviceResponse.Message = $"News with id {objId} is not available to update.";
                     return serviceResponse;
                 }
 

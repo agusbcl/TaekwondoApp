@@ -14,6 +14,7 @@ namespace Application
         {
             services.AddScoped<IAuthorityService, AuthorityService>();
             services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<ISchoolService, SchoolService>();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AuthenticationRequestValidator>());
