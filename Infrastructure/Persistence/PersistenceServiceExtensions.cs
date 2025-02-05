@@ -22,6 +22,7 @@ namespace Persistence
 
             services.AddScoped<IauthorityRepository, AuthorityRepository>();
             services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<ISchoolRepository, SchoolRepository>();
 
             return services;
         }

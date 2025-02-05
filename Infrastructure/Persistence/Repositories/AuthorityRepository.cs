@@ -1,7 +1,5 @@
 ﻿using Application.Interfaces.Persistence;
-using AutoMapper.QueryableExtensions;
 using Domain.Entities;
-using DTOs.News;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
