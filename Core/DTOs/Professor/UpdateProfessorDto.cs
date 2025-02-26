@@ -2,6 +2,13 @@
 {
     public class UpdateProfessorDto
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateOnly BirthDate { get; set; }
+        public string IdentificationType { get; set; }
+        public string IdentificationNumber { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public bool IsMaster { get; set; }
         public string ImgUrl { get; set; }
         public int SchoolId { get; set; }

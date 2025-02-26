@@ -48,14 +48,13 @@ namespace API.Controllers
 
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult> GetById(int id)
-        {
-            var result = await _newsService.GetById(id);
+        {var result = await _newsService.GetById(id);
 
             if (result != null)
             {
                 return Ok(result);
             }
-            return NotFound($"News with id {id} was not found.");
+            return NotFound($"News with id {id} was not found.");            
         }
 
         [HttpPut("Update/{id}")]

@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces.Services;
 using Application.Services;
-using Application.Validators.Authentication;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +14,11 @@ namespace Application
             services.AddScoped<IAuthorityService, AuthorityService>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<ISchoolService, SchoolService>();
+            services.AddScoped<IProfessorService, ProfessorService>();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddControllers()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AuthenticationRequestValidator>());
+            services.AddControllers();
+            services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
 
             return services;
         }
