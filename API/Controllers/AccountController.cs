@@ -55,6 +55,16 @@ namespace API.Controllers
             return Ok(await _authenticationService.CreateAuthorityAsync(request));
         }
 
+        [HttpPost("create-professor")]
+        [Authorize(Roles = "Authority")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<RegistrationResponse>> RegisterProfessorAsync(ProfessorRegistrationRequest request)
+        {
+            return Ok(await _authenticationService.CreateProfessorAsync(request));
+        }
+
         [HttpGet("me")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]

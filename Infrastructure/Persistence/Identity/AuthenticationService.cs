@@ -15,7 +15,6 @@ using Utilities.Enums;
 
 namespace Persistence.Identity
 {
-
     public class AuthenticationService : IAuthenticationService
     {
 
@@ -23,6 +22,7 @@ namespace Persistence.Identity
         public readonly SignInManager<ApplicationUser> _signInManager;
         public readonly JwtSettings _jwtSettings;
         private readonly IauthorityRepository _authorityRepository;
+        private readonly IProfessorRepository _professorRepository;
         private readonly IMapper _mapper;
 
         public AuthenticationService
@@ -30,12 +30,14 @@ namespace Persistence.Identity
             IOptions<JwtSettings> jwtSettings,
             SignInManager<ApplicationUser> signInManager,
             IauthorityRepository authorityRepository,
+            IProfessorRepository professorRepository,
             IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtSettings = jwtSettings.Value;
             _authorityRepository = authorityRepository;
+            _professorRepository = professorRepository;
             _mapper = mapper;
         }
 
@@ -102,7 +104,7 @@ namespace Persistence.Identity
             };
         }
 
-        public async Task AddAuthority(ApplicationUser user, AuthorityRegistrationRequest request)
+        private async Task AddAuthority(ApplicationUser user, AuthorityRegistrationRequest request)
         {
             var authority = new Authority
             {
@@ -121,6 +123,65 @@ namespace Persistence.Identity
 
             await _authorityRepository.AddAsync(authority);
             await _authorityRepository.SaveChangesAsync();
+
+        }
+
+        public async Task<RegistrationResponse> CreateProfessorAsync(ProfessorRegistrationRequest request)
+        {
+            var existingEmail = await _userManager.FindByEmailAsync(request.Email);
+
+            if (existingEmail != null)
+            {
+                throw new UserCreationException($"Email '{request.Email}' already exists");
+            }
+
+            var user = _mapper.Map<ApplicationUser>(request);
+
+            try
+            {
+                var result = await _userManager.CreateAsync(user, request.Password);
+
+                if (!result.Succeeded)
+                {
+                    throw new UserCreationException($"{string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
+
+                var roleResult = await AddUserRole(user, AccountType.Professor);
+
+                await AddProfessor(user, request);
+
+            }
+            catch (Exception ex)
+            {
+                // Handle exception related to addition 
+                await _userManager.DeleteAsync(user);
+                throw new UserCreationException($"Error adding user: {ex.Message}");
+            }
+            return new RegistrationResponse()
+            {
+                UserId = user.Id
+            };
+        }
+
+        private async Task AddProfessor(ApplicationUser user, ProfessorRegistrationRequest request)
+        {
+            var professor = new Professor
+            {
+                ApplicationUserId = user.Id,
+                IsMaster = request.IsMaster,
+                SchoolId = request.SchoolId,
+                Address = new Address
+                {
+                    Street = request.AddressStreet,
+                    ZipCode = request.AddresZipCode,
+                    City = request.AddressCity,
+                    Province = request.AddressProvince
+                }
+
+            };
+
+            await _professorRepository.AddAsync(professor);
+            await _professorRepository.SaveChangesAsync();
 
         }
 

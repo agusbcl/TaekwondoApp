@@ -9,5 +9,6 @@ namespace Application.Interfaces.Services
         Task<ApplicationUser> CreateUserAsync(RegistrationRequest request);
         Task<RegistrationResponse> CreateAuthorityAsync(AuthorityRegistrationRequest request);
         Task<AuthenticatedUserResponse> FindByIdAsync(string userId);
+        Task<RegistrationResponse> CreateProfessorAsync(ProfessorRegistrationRequest request);
     }
 }
